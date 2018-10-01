@@ -31,9 +31,13 @@ data["y_model"] = alpha + beta * data["x"]
 SSR = sum((data["y_model"] - y_mean)**2)
 SSD = sum((data["y_model"] - data["y_actual"]) **2)
 SST = sum((data["y_actual"] - y_mean) **2) 
-print (SSR, SSD, SST)
+print ('SSR',SSR,'SSD', SSD,'SST', SST)
 R2 = SSR / SST
-print(R2)
+print('R2',R2)
+RSE = np.sqrt(SSD/(len(data)-2))
+print('RSE', RSE)
+porcentaje = (RSE / y_mean) *100
+print('Porcentaje de error', porcentaje, '%')
 y_mean = [np.mean(y_act) for i in range(1,len(x_list) + 1)]
 plt.plot(data["x"], data["y_actual"], "ro")
 plt.plot(data["x"], data["y_model"], "r")
