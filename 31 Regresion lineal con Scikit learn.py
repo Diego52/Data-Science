@@ -10,7 +10,7 @@ x= data[features_cols]
 y = data["Sales"]
 estimator = SVR(kernel = "linear") #crea un modelo lineal
 selector = RFE(estimator, 2, step=1) #Le pedimos que deje el modelo en 2 variables predictoras Recursive Feature Elimination
-selector = selector.fit(x,y)
+selector = selector.fit(x,y) 
 print(selector.support_)
 print(selector.ranking_)
 
