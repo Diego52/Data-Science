@@ -13,7 +13,7 @@ contingency_table = pd.crosstab(df["Gender"],df["Purchase"])
 print(contingency_table)
 print(contingency_table.sum(axis =1))
 print(contingency_table.sum(axis =0))
-print(contingency_table.astype("float").div(contingency_table.sum(axis =1), axis = 0))
+print(contingency_table.astype("float").div(contingency_table.sum(axis =1), axis = 0)) #divide cada elemento entre la suma de esa fila, calculando asi su probabilidad
 
 '''Probabilidad condicional (4 aqui)
 Define si un suceso sea verdad o no de acuerdo a cosas que ya estan pasando
