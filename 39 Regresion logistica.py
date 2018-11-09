@@ -6,6 +6,7 @@ from sklearn import datasets
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 from sklearn.cross_validation import train_test_split
+from sklearn.cross_validation import cross_val_score
 data = pd.read_csv("python-ml-course-master/datasets/bank/bank.csv", sep=";")
 data["y"] = (data["y"] == "yes").astype(int)
 categories = ["job", "marital", "education","default", "housing", "loan", "contact", 
@@ -54,8 +55,24 @@ prob = probs[:,1]
 prob_df = pd.DataFrame(prob)
 threshold = 0.1
 prob_df["prediction"] = np.where(prob_df[0]>threshold,1,0)
+prob_df["actual"] = list(Y_test)
 print(prob_df.head())
 print(pd.crosstab(prob_df.prediction, columns="count"))
 
 from sklearn import metrics
 print ("Acertamos en el",metrics.accuracy_score(Y_test, prediccion) * 100,"porciento de los casos")
+
+#cross validation
+scores = cross_val_score(LogisticRegression(), X, Y,scoring='accuracy',cv=10)
+print(scores.mean())
+
+#matrices de confusion 
+confusion_matrix = pd.crosstab(prob_df.prediction,prob_df.actual)
+print(confusion_matrix)
+TN = confusion_matrix[0][0]
+TP = confusion_matrix[1][1]
+FN = confusion_matrix[0][1]
+FP = confusion_matrix[1][0]
+sens = TP/(TP+FN)
+espc_1 = 1 - (TP/(TP+FN))
+print(sens,espc_1)
